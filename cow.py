@@ -3,8 +3,8 @@ from random import randint
 
 class ty_cow:
     def __init__(self):
-        self.x = 10
-        self.y = 10
+        self.x = randint(35, curses.COLS-2)
+        self.y = randint(1, curses.LINES-2)
         self.direction = 4
 
     def move(self):
@@ -29,7 +29,7 @@ class ty_cow:
             self.y -= 1
             self.x -= 1
 
-        if self.x < 1:
+        if self.x < 31:
             self.x += 1
             self.direction = 3
         if self.y < 1:
@@ -60,7 +60,7 @@ if __name__ == "__main__":
 
     cowlist = []
 
-    for x in range(10):
+    for x in range(100):
         cowlist.append(ty_cow())
 
     ch = stdscr.getch()
@@ -68,10 +68,12 @@ if __name__ == "__main__":
     while ch != 113:
         stdscr.clear()
 
-
-        for x in range(len(cowlist)):
+        for x in range(100):
             cowlist[x].move()
+            #stdscr.addstr(x+5,0, "x:{:<3d} y:{:<3d}".format(cowlist[x].x, cowlist[x].y))
 
+        for x in range(curses.LINES):
+            stdscr.addstr(x, 30, "|")
 
         stdscr.refresh()
         stdscr.addstr(0,0,"{:d}".format(ch))
